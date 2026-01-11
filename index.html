@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cocktails</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { background:#111; color:white; font-family:Arial; margin:0 }
+header { padding:10px; display:flex; gap:10px }
+input { flex:1; padding:10px; font-size:16px }
+button { padding:10px }
+.card { background:#222; margin:10px; padding:15px; border-radius:8px }
+</style>
+</head>
+<body>
+
+<header>
+  <input id="search" placeholder="Search cocktail">
+  <button id="lang">EN / UA</button>
+</header>
+
+<div id="list"></div>
+
+<script>
+let lang = "en";
+
+const cocktails = [
+  {
+    en: "Strawberry Daiquiri",
+    ua: "Полуничний дайкірі",
+    recipe: "White rum 50 ml\nStrawberry puree 25 ml\nLime juice 25 ml"
+  },
+  {
+    en: "Margarita",
+    ua: "Маргарита",
+    recipe: "Tequila 50 ml\nTriple sec 25 ml\nLime juice 25 ml"
+  }
+];
+
+const list = document.getElementById("list");
+const search = document.getElementById("search");
+const langBtn = document.getElementById("lang");
+
+function render(){
+  list.innerHTML = "";
+  cocktails
+    .filter(c =>
+      (lang === "en" ? c.en : c.ua)
+      .toLowerCase()
+      .includes(search.value.toLowerCase())
+    )
+    .forEach(c => {
+      const d = document.createElement("div");
+      d.className = "card";
+      d.textContent = lang === "en" ? c.en : c.ua;
+      d.onclick = () => alert(c.recipe);
+      list.appendChild(d);
+    });
+}
+
+langBtn.onclick = () => {
+  lang = lang === "en" ? "ua" : "en";
+  render();
+};
+
+search.oninput = render;
+render();
+</script>
+
+</body>
+</html>
