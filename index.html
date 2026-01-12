@@ -2,74 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cocktails</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body { background:#111; color:white; font-family:Arial; margin:0 }
-header { padding:10px; display:flex; gap:10px }
-input { flex:1; padding:10px; font-size:16px }
-button { padding:10px }
-.card { background:#222; margin:10px; padding:15px; border-radius:8px }
-</style>
+<title>COCKTAILS</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-  <input id="search" placeholder="Search cocktail">
-  <button id="lang">EN / UA</button>
+  <h1>COCKTAILS</h1>
+  <div class="controls">
+    <input id="search" placeholder="Search">
+    <button>EN / UA</button>
+  </div>
 </header>
 
-<div id="list"></div>
+<section>
+<h2>SMALL COCKTAILS</h2>
+<div class="grid" id="small"></div>
+</section>
 
-<script>
-let lang = "en";
+<section>
+<h2>LARGE COCKTAILS</h2>
+<div class="grid" id="large"></div>
+</section>
 
-const cocktails = [
- {
-  en: "Strawberry Daiquiri",
-  ua: "Полуничний дайкірі",
-  image: "images/daiquiri.jpg",
-  recipe: "White rum 50 ml\nStrawberry puree 25 ml\nLime juice 25 ml"
-},
-  {
-    en: "Margarita",
-    ua: "Маргарита",
-    recipe: "Tequila 50 ml\nTriple sec 25 ml\nLime juice 25 ml"
-  }
-];
+<div id="popup" class="hidden">
+  <div class="popup">
+    <h3 id="p-title"></h3>
+    <img id="p-img">
+    <pre id="p-text"></pre>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
 
-const list = document.getElementById("list");
-const search = document.getElementById("search");
-const langBtn = document.getElementById("lang");
-
-function render(){
-  list.innerHTML = "";
-  cocktails
-    .filter(c =>
-      (lang === "en" ? c.en : c.ua)
-      .toLowerCase()
-      .includes(search.value.toLowerCase())
-    )
-    .forEach(c => {
-      const d = document.createElement("div");
-      d.className = "card";
-      d.innerHTML = `
-  <img src="${c.image}" style="width:100%; border-radius:6px">
-  <h3>${lang === "en" ? c.en : c.ua}</h3>
-`;
-      d.onclick = () => alert(c.recipe);
-      list.appendChild(d);
-    });
-}
-
-langBtn.onclick = () => {
-  lang = lang === "en" ? "ua" : "en";
-  render();
-};
-
-search.oninput = render;
-render();
-</script>
-
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
