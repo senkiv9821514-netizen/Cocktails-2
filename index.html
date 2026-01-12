@@ -53,7 +53,10 @@ function render(){
     .forEach(c => {
       const d = document.createElement("div");
       d.className = "card";
-      d.textContent = lang === "en" ? c.en : c.ua;
+      d.innerHTML = `
+  <img src="${c.image}" style="width:100%; border-radius:6px">
+  <h3>${lang === "en" ? c.en : c.ua}</h3>
+`;
       d.onclick = () => alert(c.recipe);
       list.appendChild(d);
     });
